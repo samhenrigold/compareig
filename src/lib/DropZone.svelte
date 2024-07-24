@@ -84,7 +84,7 @@
 		cursor: pointer;
 		transition: all 0.3s ease;
 		background-color: var(--secondary-bg);
-		font-size: 1em;
+		font-size: 1rem;
 	}
 
 	.drop-zone:hover,

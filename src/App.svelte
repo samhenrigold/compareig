@@ -1,6 +1,7 @@
 <script lang="ts">
 	import FileDropZone from "@components/DropZone.svelte";
 	import ResultsList from "@components/ResultsList.svelte";
+	import StepCarousel from "@components/tutorial/StepCarousel.svelte";
 	import type { ProcessedData } from "@/types/instagram";
 	import "./app.css";
 
@@ -42,10 +43,10 @@
 <main>
 	<h1>Instagram Follower Analyzer</h1>
 
-  <details class="info">
+	<details class="info">
 		<summary>
-      <h2>How it works</h2>
-    </summary>
+			<h2>How it works</h2>
+		</summary>
 		<ul>
 			<li>Your data stays on your device. We never upload or store your information on any servers.</li>
 			<li>All processing happens right here in your browser.</li>
@@ -54,6 +55,8 @@
 		</ul>
 		<p>Still not sure? The <a href="https://github.com/samhenrigold/insta-diff" target="_blank">source code is available</a> and accepting contributions!</p>
 	</details>
+
+	<StepCarousel />
 
 	<FileDropZone on:fileSelected={(e) => handleFileSelect(e.detail.file)} />
 

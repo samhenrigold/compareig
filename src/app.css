@@ -1,0 +1,20 @@
+:root {
+  color-scheme: light dark;
+
+  --primary-bg: light-dark(#ffffff, #1a1a1a);
+  --primary-text: light-dark(#333333, #ffffff);
+  --secondary-bg: light-dark(#f0f0f0, #2a2a2a);
+  --border-color: light-dark(#cccccc, #555555);
+  --accent-color: #4a90e2;
+  --error-bg: light-dark(#ffe4e6, #881337);
+  --error-text: light-dark(#e11d48, #fecdd3);
+
+  --hover-bg: color-mix(in srgb, var(--primary-bg) 90%, var(--primary-text));
+  --hover-border: color-mix(in srgb, var(--border-color) 60%, var(--primary-text));
+  --button-hover-bg: color-mix(in srgb, var(--accent-color) 80%, black);
+}
+
+body {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}

@@ -1,4 +1,6 @@
-# Instagram Follower Analyzer
+# [Instagram Follower Analyzer](https://instadiff.netlify.app/)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/482c1013-50da-4c8f-92b1-5a9ece798e31/deploy-status)](https://app.netlify.com/sites/instadiff/deploys)
 
 ## Overview
 

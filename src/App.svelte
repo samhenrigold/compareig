@@ -55,6 +55,7 @@
             <li>We only read the followers and following lists from your Instagram data. Nothing else is accessed.</li>
         </ul>
         <p>Still not sure? The <a href="https://github.com/samhenrigold/insta-diff" target="_blank">source code is available</a> and accepting contributions!</p>
+        <p>A web tool by <a href="https://samhenri.gold">Sam Henri Gold</a></p>
     </details>
 
     <FileDropZone on:fileSelected={(e) => handleFileSelect(e.detail.file)} />
@@ -120,23 +121,9 @@
         margin-bottom: var(--space-s);
     }
 
-    .info div {
-        margin: var(--space-s) 0;
-        font-size: var(--text-0);
-        padding-left: var(--space-m);
-    }
-
-    .info div button {
-        /* unstyle to look like a link */
-        background: none;
-        border: none;
-        color: var(--link-color);
-        cursor: pointer;
-        font-size: inherit;
-        text-decoration: underline;
-        padding: 0;
-        margin: 0;
-        font-weight: 600;
+    .info p:last-of-type {
+        margin-top: var(--space-m);
+        opacity: 0.7;
     }
 
     .info ul {

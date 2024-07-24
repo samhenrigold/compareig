@@ -48,10 +48,6 @@
         <summary>
             <h2>How it works</h2>
         </summary>
-        <div hidden>
-            <span>Not sure how to get started?</span>
-            <button on:click={() => dialogElement.showModal()}>Learn how to download your data</button>
-        </div>
         <ul>
             <li>Your data stays on your device. We never upload or store your information on any servers.</li>
             <li>All processing happens right here in your browser.</li>
@@ -60,11 +56,6 @@
         </ul>
         <p>Still not sure? The <a href="https://github.com/samhenrigold/insta-diff" target="_blank">source code is available</a> and accepting contributions!</p>
     </details>
-
-    <dialog bind:this={dialogElement}>
-        <button class="close-button" on:click={() => dialogElement.close()} aria-label="Close tutorial">×</button>
-        <StepCarousel />
-    </dialog>
 
     <FileDropZone on:fileSelected={(e) => handleFileSelect(e.detail.file)} />
 

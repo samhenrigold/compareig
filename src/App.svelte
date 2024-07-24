@@ -46,15 +46,13 @@
 		<summary>
       <h2>How it works</h2>
     </summary>
-		<p>
-			This tool helps you analyze your Instagram followers and following list. It’s completely safe to use, and here's why:
-		</p>
 		<ul>
 			<li>Your data stays on your device. We never upload or store your information on any servers.</li>
 			<li>All processing happens right here in your browser.</li>
 			<li>You can use this tool offline once the page has loaded.</li>
 			<li>We only read the followers and following lists from your Instagram data. Nothing else is accessed.</li>
 		</ul>
+		<p>Still not sure? The <a href="https://github.com/samhenrigold/insta-diff" target="_blank">source code is available</a> and accepting contributions!</p>
 	</details>
 
 	<FileDropZone on:fileSelected={(e) => handleFileSelect(e.detail.file)} />

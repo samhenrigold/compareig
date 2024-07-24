@@ -8,6 +8,7 @@
 	let results: ProcessedData | null = null;
 	let loading = false;
 	let error: string | null = null;
+    let dialogElement: HTMLDialogElement;
 
 	async function handleFileSelect(file: File) {
 		loading = true;
@@ -41,92 +42,118 @@
 </script>
 
 <main>
-	<h1>Instagram Follower Analyzer</h1>
+    <h1>Compare Instagram Followers</h1>
 
-	<details class="info">
-		<summary>
-			<h2>How it works</h2>
-		</summary>
-		<ul>
-			<li>Your data stays on your device. We never upload or store your information on any servers.</li>
-			<li>All processing happens right here in your browser.</li>
-			<li>You can use this tool offline once the page has loaded.</li>
-			<li>We only read the followers and following lists from your Instagram data. Nothing else is accessed.</li>
-		</ul>
-		<p>Still not sure? The <a href="https://github.com/samhenrigold/insta-diff" target="_blank">source code is available</a> and accepting contributions!</p>
-	</details>
+    <details class="info">
+        <summary>
+            <h2>How it works</h2>
+        </summary>
+        <div hidden>
+            <span>Not sure how to get started?</span>
+            <button on:click={() => dialogElement.showModal()}>Learn how to download your data</button>
+        </div>
+        <ul>
+            <li>Your data stays on your device. We never upload or store your information on any servers.</li>
+            <li>All processing happens right here in your browser.</li>
+            <li>You can use this tool offline once the page has loaded.</li>
+            <li>We only read the followers and following lists from your Instagram data. Nothing else is accessed.</li>
+        </ul>
+        <p>Still not sure? The <a href="https://github.com/samhenrigold/insta-diff" target="_blank">source code is available</a> and accepting contributions!</p>
+    </details>
 
-	<StepCarousel />
+    <dialog bind:this={dialogElement}>
+        <button class="close-button" on:click={() => dialogElement.close()} aria-label="Close tutorial">×</button>
+        <StepCarousel />
+    </dialog>
 
-	<FileDropZone on:fileSelected={(e) => handleFileSelect(e.detail.file)} />
+    <FileDropZone on:fileSelected={(e) => handleFileSelect(e.detail.file)} />
 
-	{#if loading}
-		<p aria-live="polite">Processing your data. Please wait...</p>
-	{:else if error}
-		<p class="error" role="alert">{error}</p>
-	{:else if results}
-		<section aria-label="Analysis Results">
-			<h2>Results</h2>
-			<ResultsList
-				title="Not following you back"
-				users={results.notFollowingBack}
-			/>
-			<ResultsList
-				title="Not followed back"
-				users={results.notFollowedBack}
-			/>
-			<ResultsList title="Mutuals" users={results.mutuals} />
-		</section>
-	{/if}
+    {#if loading}
+        <p aria-live="polite">Processing your data. Please wait...</p>
+    {:else if error}
+        <p class="error" role="alert">{error}</p>
+    {:else if results}
+        <section aria-label="Analysis Results">
+            <h2>Results</h2>
+            <ResultsList
+                title="Not following you back"
+                users={results.notFollowingBack}
+            />
+            <ResultsList
+                title="Not followed back"
+                users={results.notFollowedBack}
+            />
+            <ResultsList title="Mutuals" users={results.mutuals} />
+        </section>
+    {/if}
 </main>
 
 <style>
-	:global(body) {
-		position: relative;
-		min-height: 100vh;
-	}
+    main {
+        max-inline-size: 65ch;
+        margin-inline: auto;
+        padding-block: var(--space-l);
+        padding-inline: var(--space-m);
+        font-family: system-ui, sans-serif;
+    }
 
-	main {
-		max-inline-size: 800px;
-		margin-inline: auto;
-		padding-block: 2rem;
-		padding-inline: 1rem;
-		font-family: system-ui, sans-serif;
-	}
+    h1 {
+        font-size: var(--text-4);
+        text-align: center;
+        margin-block-end: var(--space-l);
+    }
 
-	h1 {
-		font-size: clamp(1.5rem, 5vw, 2.5rem);
-		text-align: center;
-		margin-block-end: 2rem;
-	}
+    .error {
+        color: var(--error-text);
+        background-color: var(--error-bg);
+        padding: var(--space-s);
+        border-radius: var(--space-2xs);
+        font-weight: bold;
+    }
 
-	.error {
-		color: var(--error-text);
-		background-color: var(--error-bg);
-		padding: 1rem;
-		border-radius: 0.5rem;
-		font-weight: bold;
-	}
+    .info {
+        background-color: var(--secondary-bg);
+        border-radius: var(--space-2xs);
+        padding: var(--space-m);
+        margin-bottom: var(--space-l);
+        padding-left: var(--space-m);
+    }
 
-  .info {
-		background-color: var(--secondary-bg);
-		border-radius: 0.5rem;
-		padding: 1.5rem;
-		margin-bottom: 2rem;
-	}
+    .info p {
+        padding-left: var(--space-m);
+    }
 
-	.info h2 {
-    display: inline;
-		font-size: 1.2rem;
-		margin-bottom: 1rem;
-	}
+    .info h2 {
+        display: inline;
+        font-size: var(--text-1);
+        margin-bottom: var(--space-s);
+    }
 
-	.info ul {
-		padding-left: 1.5rem;
-		margin-bottom: 1rem;
-	}
+    .info div {
+        margin: var(--space-s) 0;
+        font-size: var(--text-0);
+        padding-left: var(--space-m);
+    }
 
-	.info li {
-		margin-bottom: 0.5rem;
-	}
+    .info div button {
+        /* unstyle to look like a link */
+        background: none;
+        border: none;
+        color: var(--link-color);
+        cursor: pointer;
+        font-size: inherit;
+        text-decoration: underline;
+        padding: 0;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .info ul {
+        margin-bottom: var(--space-s);
+        padding-left: var(--space-m);
+    }
+
+    .info li {
+        margin-bottom: var(--space-2xs);
+    }
 </style>

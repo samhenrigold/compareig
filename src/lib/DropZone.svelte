@@ -52,72 +52,74 @@
 </script>
 
 <button
-	class="drop-zone"
-	class:drag-over={dragOver}
-	on:click={() => fileInput.click()}
-	tabindex="0"
-	aria-label="Drop Instagram data takeout ZIP file here or click to select"
+    class="drop-zone"
+    class:drag-over={dragOver}
+    on:click={() => fileInput.click()}
+    tabindex="0"
+    aria-label="Drop Instagram ZIP file here or click to select"
 >
-	<p>Drop your Instagram data takeout ZIP file here</p>
-	<p>or</p>
-	<p class="fake-button">Select a file</p>
-	<input
-		id="file-input"
-		type="file"
-		accept=".zip"
-		on:change={handleFileInput}
-		bind:this={fileInput}
-	/>
+    <p>Drop your Instagram ZIP file here</p>
+    <p>or</p>
+    <p class="fake-button">Select a file</p>
+    <input
+        id="file-input"
+        type="file"
+        accept=".zip"
+        on:change={handleFileInput}
+        bind:this={fileInput}
+    />
 </button>
 
 <style>
-	.drop-zone {
-		margin: 0 auto;
-		border: 2px dashed var(--border-color);
-		border-radius: 1rem;
-		padding: 2rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		background-color: var(--secondary-bg);
-		font-size: 1rem;
-	}
+    .drop-zone {
+        margin: var(--space-m) auto;
+        border: 2px dashed var(--border-color);
+        border-radius: var(--space-s);
+        padding: var(--space-l);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-color: var(--secondary-bg);
+        font-size: var(--text-0);
+        width: 100%;
+    }
 
-	.drop-zone:hover,
-	.drop-zone:focus,
-	.drag-over {
-		background-color: var(--hover-bg);
-		border-color: var(--hover-border);
-	}
+    .drop-zone:hover,
+    .drop-zone:focus,
+    .drag-over {
+        background-color: var(--hover-bg);
+        border-color: var(--hover-border);
+    }
 
-	.drop-zone:focus {
-		outline: 2px solid var(--accent-color);
-		outline-offset: 2px;
-	}
+    .drop-zone:focus {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 2px;
+    }
 
-	input[type="file"] {
-		display: none;
-	}
+    input[type="file"] {
+        display: none;
+    }
 
-	.fake-button {
-		background-color: var(--accent-color);
-		color: #fff;
-		padding: 0.5rem 1rem;
-		border-radius: 0.5rem;
-		cursor: pointer;
-	}
+    .fake-button {
+        background-color: var(--accent-color);
+        color: #fff;
+        padding: var(--space-2xs) var(--space-s);
+        border-radius: var(--space-3xs);
+        cursor: pointer;
+        margin-top: var(--space-s);
+    }
 
-	.fake-button:hover {
-		background-color: var(--button-hover-bg);
-	}
+    .fake-button:hover {
+        background-color: var(--button-hover-bg);
+    }
 
-	@media (forced-colors: active) {
-		.drop-zone {
-			border: 2px solid ButtonText;
-		}
-	}
+    @media (forced-colors: active) {
+        .drop-zone {
+            border: 2px solid ButtonText;
+        }
+    }
 </style>

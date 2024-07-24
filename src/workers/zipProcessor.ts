@@ -3,19 +3,41 @@ import { InstagramDataError } from '@utils/errors';
 import type { ProcessedData, InstagramUser } from '@/types/instagram';
 import { findConnectionsDirectory } from '@workers/fileProcessing';
 import { parseHTMLContent } from '@workers/htmlParser';
-import { parseJSONContent } from '@workers/jsonParser';
+import { parseJSONContent, isValidInstagramData } from '@workers/jsonParser';
 import { setDifference, setIntersection } from '@utils/set';
 
 async function processFile(file: JSZip.JSZipObject, isFollowing: boolean): Promise<InstagramUser[]> {
   const content = await file.async('string');
-  return file.name.endsWith('.html') ? parseHTMLContent(content) : parseJSONContent(content, isFollowing);
+  
+  if (file.name.endsWith('.html')) {
+    return parseHTMLContent(content);
+  } else if (file.name.endsWith('.json')) {
+    try {
+      const parsedData = JSON.parse(content);
+      if (!isValidInstagramData(parsedData)) {
+        throw new InstagramDataError(`Invalid Instagram data structure in ${file.name}`);
+      }
+      return parseJSONContent(content, isFollowing);
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        throw new InstagramDataError(`Invalid JSON in ${file.name}: ${error.message}`);
+      }
+      throw error;
+    }
+  } else {
+    throw new InstagramDataError(`Unsupported file type: ${file.name}`);
+  }
 }
 
 export async function processZipFile(file: File): Promise<ProcessedData> {
-  const zip = new JSZip();
-  const contents = await zip.loadAsync(file);
+  let zip: JSZip;
+  try {
+    zip = await JSZip.loadAsync(file);
+  } catch (error) {
+    throw new InstagramDataError('Failed to load ZIP file. Is it a valid ZIP archive?');
+  }
 
-  const connectionsDir = await findConnectionsDirectory(contents);
+  const connectionsDir = await findConnectionsDirectory(zip);
   if (!connectionsDir) {
     throw new InstagramDataError('Connections directory not found in the ZIP');
   }
@@ -32,8 +54,16 @@ export async function processZipFile(file: File): Promise<ProcessedData> {
     throw new InstagramDataError('Required files not found in the ZIP');
   }
 
-  const followers = await processFile(followersFile, false);
-  const following = await processFile(followingFile, true);
+  let followers: InstagramUser[], following: InstagramUser[];
+  try {
+    followers = await processFile(followersFile, false);
+    following = await processFile(followingFile, true);
+  } catch (error) {
+    if (error instanceof InstagramDataError) {
+      throw error;
+    }
+    throw new InstagramDataError('Error processing Instagram data files');
+  }
 
   const followerSet = new Set(followers.map(f => f.username));
   const followingSet = new Set(following.map(f => f.username));

@@ -55,7 +55,7 @@
             <li>You can use this tool offline once the page has loaded.</li>
             <li>We only read the followers and following lists from your Instagram data. Nothing else is accessed.</li>
         </ul>
-        <p>Still not sure? The <a href="https://github.com/samhenrigold/insta-diff" target="_blank">source code is available</a> and accepting contributions!</p>
+        <p>Still not sure? The <a href="https://github.com/samhenrigold/compareig" target="_blank">source code is available</a> and accepting contributions!</p>
         <p>A web tool by <a href="https://samhenri.gold">Sam Henri Gold</a></p>
     </details>
 

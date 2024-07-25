@@ -49,7 +49,7 @@ To run this project locally:
 To create a production build:
 
 1. Run `npm run build`
-2. The built files will be in the `public` directory
+2. The built files will be in the `dist` directory
 
 ## Contributing
 

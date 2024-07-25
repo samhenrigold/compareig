@@ -28,10 +28,18 @@
 
     li {
         & img {
+            box-sizing: border-box;
+            color-scheme: dark;
             display: block;
             max-width: 100%;
             height: auto;
             margin-top: auto;
+            background-color: color-mix(in srgb, var(--tertiary-bg) 50%, transparent 50%);
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            /* add a phone border to all edges except the bottom */
+            border: 12px solid var(--primary-bg);
+            border-bottom: none;
         }
 
         & p, button {

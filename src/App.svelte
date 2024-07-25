@@ -3,12 +3,12 @@
 	import ResultsList from "@components/ResultsList.svelte";
 	import StepCarousel from "@components/tutorial/StepCarousel.svelte";
 	import type { ProcessedData } from "@/types/instagram";
+    import { generateRichTextResults } from '@/utils/richTextGenerator';
 	import "./app.css";
 
 	let results: ProcessedData | null = null;
 	let loading = false;
 	let error: string | null = null;
-    let dialogElement: HTMLDialogElement;
 
 	async function handleFileSelect(file: File) {
 		loading = true;
@@ -39,6 +39,15 @@
 			loading = false;
 		}
 	}
+
+    function copyRichTextResults() {
+        if (results) {
+            const richText = generateRichTextResults(results);
+            navigator.clipboard.writeText(richText).then(() => {
+                alert('Rich-text results copied to clipboard!');
+            });
+        }
+    }
 </script>
 
 <main>
@@ -68,6 +77,8 @@
     {:else if results}
         <section aria-label="Analysis Results">
             <h2>Results</h2>
+            <p>Want to save this for later? Copy and paste this into your Notes app.</p>
+            <button on:click={copyRichTextResults}>Copy Results</button>
             <ResultsList
                 title="Not following you back"
                 users={results.notFollowingBack}
@@ -134,5 +145,20 @@
 
     .info li {
         margin-bottom: var(--space-2xs);
+    }
+
+    button {
+        background-color: var(--accent-color);
+        color: #fff;
+        padding: var(--space-xs) var(--space-s);
+        border: none;
+        border-radius: var(--space-3xs);
+        cursor: pointer;
+        font-size: var(--text-0);
+        margin-bottom: var(--space-m);
+    }
+
+    button:hover {
+        background-color: var(--button-hover-bg);
     }
 </style>

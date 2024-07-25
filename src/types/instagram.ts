@@ -15,8 +15,17 @@ export interface InstagramData {
   relationships_following: InstagramUserJSON[];
 }
 
+export interface RelationshipInfo {
+  username: string;
+  timestamp?: number;
+  duration?: {
+    type: 'fan' | 'idol' | 'mutual';
+    time: string;
+  };
+}
+
 export interface ProcessedData {
-  notFollowingBack: string[];
-  notFollowedBack: string[];
-  mutuals: string[];
+  notFollowingBack: RelationshipInfo[];
+  notFollowedBack: RelationshipInfo[];
+  mutuals: RelationshipInfo[];
 }

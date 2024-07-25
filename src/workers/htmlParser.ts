@@ -1,34 +1,33 @@
-import { DOMParser } from 'xmldom';
-import { InstagramDataError } from '@utils/errors';
+import * as cheerio from 'cheerio';
+import { InstagramDataError } from '@/utils/errors';
 import type { InstagramUser } from '@/types/instagram';
 
 export function parseHTMLContent(html: string): InstagramUser[] {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  const mainContent = doc.getElementsByTagName('body')[0];
-
-  if (!mainContent) {
-    throw new InstagramDataError('Could not find main content in HTML');
-  }
-
+  const $ = cheerio.load(html);
   const users: InstagramUser[] = [];
-  const rows = mainContent.getElementsByTagName('div');
 
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    if (row.getAttribute('class')?.includes('pam _3-95 _2ph- _a6-g') ?? false) {
-      const usernameElement = row.getElementsByTagName('a')[0];
-      const timestampElement = row.getElementsByTagName('div')[1];
+  $('.pam._3-95._2ph-._a6-g.uiBoxWhite.noborder').each((_, element) => {
+    const $element = $(element);
+    const $usernameElement = $element.find('a');
+    const $timestampElement = $element.find('div > div > div').last();
 
-      if (usernameElement && timestampElement) {
-        const username = usernameElement.textContent?.trim() ?? '';
-        const timestampStr = timestampElement.textContent?.trim() ?? '';
-        const timestamp = new Date(timestampStr).getTime();
+    if ($usernameElement.length && $timestampElement.length) {
+      const username = $usernameElement.text().trim();
+      const timestampStr = $timestampElement.text().trim();
+      const timestamp = parseTimestamp(timestampStr);
 
-        users.push({ username, timestamp });
-      }
+      users.push({ username, timestamp });
     }
+  });
+
+  if (users.length === 0) {
+    throw new InstagramDataError('No user data found in the HTML');
   }
 
   return users;
+}
+
+function parseTimestamp(timestampStr: string): number {
+  const date = new Date(timestampStr);
+  return Math.floor(date.getTime() / 1000); // Convert to seconds to match JSON format
 }

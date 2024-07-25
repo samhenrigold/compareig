@@ -1,10 +1,9 @@
 import JSZip from 'jszip';
 import { InstagramDataError } from '@utils/errors';
-import type { ProcessedData, InstagramUser } from '@/types/instagram';
+import type { ProcessedData, InstagramUser, RelationshipInfo } from '@/types/instagram';
 import { findConnectionsDirectory } from '@workers/fileProcessing';
 import { parseHTMLContent } from '@workers/htmlParser';
 import { parseJSONContent } from '@workers/jsonParser';
-import { setDifference, setIntersection } from '@utils/set';
 
 async function processFile(file: JSZip.JSZipObject, isFollowing: boolean): Promise<InstagramUser[]> {
   const content = await file.async('string');
@@ -37,10 +36,14 @@ export async function processZipFile(file: File): Promise<ProcessedData> {
 
   const followerSet = new Set(followers.map(f => f.username));
   const followingSet = new Set(following.map(f => f.username));
+  
+  const notFollowingBack: RelationshipInfo[] = following.filter(f => !followerSet.has(f.username));
+  const notFollowedBack: RelationshipInfo[] = followers.filter(f => !followingSet.has(f.username));
+  const mutuals: RelationshipInfo[] = followers.filter(f => followingSet.has(f.username));  
 
   return {
-    notFollowingBack: setDifference(followingSet, followerSet),
-    notFollowedBack: setDifference(followerSet, followingSet),
-    mutuals: setIntersection(followerSet, followingSet)
+    notFollowingBack,
+    notFollowedBack,
+    mutuals
   };
 }

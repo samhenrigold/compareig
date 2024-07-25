@@ -1,7 +1,8 @@
 import { processZipFile } from '@workers/zipProcessor';
-import { InstagramDataError } from '@utils/errors';
+import { InstagramDataError } from '@/utils/errors';
 import { parseHTMLContent } from '@workers/htmlParser';
 import type { ProcessedData } from '@/types/instagram';
+import { calculateRelationshipDuration } from '@/utils/relationshipDuration';
 
 async function processHTMLFile(file: File): Promise<ProcessedData> {
   const content = await file.text();
@@ -9,7 +10,7 @@ async function processHTMLFile(file: File): Promise<ProcessedData> {
 
   return {
     notFollowingBack: [],
-    notFollowedBack: users.map(u => u.username),
+    notFollowedBack: users.map(u => ({ username: u.username, timestamp: u.timestamp })),
     mutuals: []
   };
 }
@@ -30,6 +31,20 @@ self.onmessage = async (e: MessageEvent<unknown>) => {
     } else {
       throw new InstagramDataError('Unsupported file type. Please upload a ZIP or HTML file.');
     }
+
+    // Calculate relationship durations
+    result.notFollowingBack = result.notFollowingBack.map(user => ({
+      ...user,
+      duration: calculateRelationshipDuration(user, 'idol')
+    }));
+    result.notFollowedBack = result.notFollowedBack.map(user => ({
+      ...user,
+      duration: calculateRelationshipDuration(user, 'fan')
+    }));
+    result.mutuals = result.mutuals.map(user => ({
+      ...user,
+      duration: calculateRelationshipDuration(user, 'mutual')
+    }));
 
     self.postMessage(result);
   } catch (error) {

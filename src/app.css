@@ -7,6 +7,7 @@
   --primary-bg: light-dark(#ffffff, #1a1a1a);
   --primary-text: light-dark(#333333, #ffffff);
   --secondary-bg: light-dark(#f0f0f0, #2a2a2a);
+  --tertiary-bg: light-dark(#f8f8f8, #333333);
   --border-color: light-dark(#cccccc, #555555);
   --accent-color: #4a90e2;
   --error-bg: light-dark(#ffe4e6, #881337);

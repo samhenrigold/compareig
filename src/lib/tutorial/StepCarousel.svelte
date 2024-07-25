@@ -29,9 +29,8 @@
 <ol class="carousel">
 	<StepSlide>
 		<div>
-			<p>Go to Instagram’s <strong>Download your information</strong> page.</p>
+			<button on:click={handleOpenInstagram}>{isIOS ? "Open" : "Go to"} Instagram’s <strong>Download your information</strong> page.</button>
 			<p>Select <strong>Download or transfer information</strong>.</p>
-			<button on:click={handleOpenInstagram}>{isIOS ? "Open" : "Go to"} Instagram</button>
 		</div>
 		<img src="/tutorial/1 Landing.png" alt="The Instagram “download your information” tool landing page." loading="lazy">
 	</StepSlide>
@@ -93,4 +92,17 @@
         display: flex;
         gap: var(--space-m);
     }
+
+	/* style the button to look and act like a regular link */
+	button {
+		background: none;
+		border: none;
+		color: var(--accent-color);
+		cursor: pointer;
+		font-size: inherit;
+		margin: 0;
+		padding: 0;
+		text-decoration: underline;
+		text-align: unset;
+	}
 </style>

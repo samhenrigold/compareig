@@ -48,6 +48,7 @@
         <summary>
             <h2>How it works</h2>
         </summary>
+        <StepCarousel />
         <ul>
             <li>Your data stays on your device. We never upload or store your information on any servers.</li>
             <li>All processing happens right here in your browser.</li>

@@ -9,7 +9,7 @@
     li {
         display: flex;
         flex-direction: column;
-        background: var(--secondary-bg);
+        background: var(--tertiary-bg);
         position: relative;
         padding: var(--space-m);
         padding-bottom: 0;
@@ -27,23 +27,21 @@
     }
 
     li {
-        & div {
-            margin-bottom: var(--space-m);
-        }
-
         & img {
             display: block;
-            width: 100%;
-            max-width: 30ch;
+            max-width: 100%;
             height: auto;
-            margin: auto;
-            margin-bottom: 0;
+            margin-top: auto;
         }
 
-        & p {
+        & p, button {
             margin: 0;
             margin-bottom: var(--text--1);
             line-height: 1.25;
+        }
+
+        & * {
+            z-index: 1;
         }
     }
 

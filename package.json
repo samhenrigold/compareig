@@ -21,7 +21,6 @@
     "vite": "^5.3.4"
   },
   "dependencies": {
-    "@zip.js/zip.js": "^2.7.47",
     "jszip": "^3.10.1",
     "xmldom": "^0.6.0"
   }

@@ -82,7 +82,7 @@
         justify-content: center;
         text-align: center;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
         background-color: var(--secondary-bg);
         font-size: var(--text-0);
         width: 100%;
@@ -91,7 +91,7 @@
     .drop-zone:hover,
     .drop-zone:focus,
     .drag-over {
-        background-color: var(--hover-bg);
+        background-color: var(--highlight-bg);
         border-color: var(--hover-border);
     }
 

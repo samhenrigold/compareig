@@ -80,6 +80,8 @@
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
         -ms-overflow-style: none;
+		margin: 0 calc(var(--space-m) * -1);
+		padding: 40px;
     }
 
     .carousel::-webkit-scrollbar {

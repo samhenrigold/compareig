@@ -24,11 +24,11 @@
             {#each users as user}
                 <li>
                     <a href="https://instagram.com/{user.username}" target="_blank">
-                        @{user.username}
+                        <span>@{user.username}</span>
+                        {#if user.duration}
+                        <p class="duration">{formatDuration(user.duration)}</p>
+                        {/if}
                     </a>
-                    {#if user.duration}
-                        <span class="duration">{formatDuration(user.duration)}</span>
-                    {/if}
                 </li>
             {/each}
         </ul>
@@ -44,7 +44,9 @@
 
     h3 {
         font-size: var(--text-1);
+        color: var(--section-header-text);
         margin-block-end: var(--space-s);
+        font-weight: 600;
     }
 
     ul {
@@ -53,25 +55,32 @@
     }
 
     li {
-        background-color: var(--secondary-bg);
-        padding: var(--space-xs);
-        border-radius: var(--space-3xs);
-        margin-bottom: var(--space-xs);
-        overflow-wrap: break-word;
+        margin: 0 calc(var(--space-s) * -1);
     }
 
     a {
+        display: block;
         color: var(--accent-color);
         text-decoration: none;
+        padding: var(--space-s);
+        overflow-wrap: break-word;
+        border-radius: var(--space-2xs);
+    }
+
+    a span {
+        font-weight: 600;
     }
 
     a:hover {
+        background-color: var(--highlight-bg);
+    }
+
+    a:hover span {
         text-decoration: underline;
     }
 
-    .duration {
-        font-size: var(--text--1);
-        color: var(--text-muted);
-        margin-left: var(--space-2xs);
+    p.duration {
+        color: var(--secondary-text);
+        margin: var(--space-3xs) 0 0;
     }
 </style>

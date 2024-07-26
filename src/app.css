@@ -4,19 +4,41 @@
 :root {
   color-scheme: light dark;
 
-  --primary-bg: light-dark(#ffffff, #1a1a1a);
-  --primary-text: light-dark(#333333, #ffffff);
-  --secondary-bg: light-dark(#f0f0f0, #2a2a2a);
-  --tertiary-bg: light-dark(#f8f8f8, #333333);
-  --border-color: light-dark(#cccccc, #555555);
-  --accent-color: #4a90e2;
-  --error-bg: light-dark(#ffe4e6, #881337);
-  --error-text: light-dark(#e11d48, #fecdd3);
+  --base-grape: hsl(260, 90%, 67%);
+  --primary-bg: light-dark(rgb(255, 255, 255), rgb(16, 16, 16));
+  --secondary-bg: light-dark(rgb(250, 250, 250), rgb(10, 10, 10));
+  --tertiary-bg: light-dark(rgb(245, 245, 245), rgb(30, 30, 30));
+  --elevated-bg: light-dark(rgb(255, 255, 255), rgb(40, 40, 40));
+  --highlight-bg: light-dark(rgb(239, 239, 239), rgb(32, 32, 32));
+  
+  --primary-text: light-dark(rgb(5, 5, 5), rgb(228, 230, 235));
+  --secondary-text: light-dark(rgb(101, 103, 107), rgb(176, 179, 184));
+  --disabled-text: light-dark(rgb(188, 192, 196), rgba(255, 255, 255, 0.3));
+  --section-header-text: light-dark(rgb(75, 76, 79), rgb(188, 192, 196));
+  --link-text: light-dark(rgb(0, 149, 246), rgb(24, 163, 254));
+  --placeholder-text: light-dark(rgb(101, 103, 107), rgb(138, 141, 145));
+  
+  --border-color: light-dark(rgb(206, 208, 212), rgb(62, 64, 66));
+  --accent-color: var(--base-grape);
+  --error-text: hsl(350, 87%, 55%);
+  --error-bg: color-mix(in srgb, var(--error-text) 20%, var(--primary-bg));
 
-  --link-color: color-mix(in srgb, var(--accent-color) 70%, var(--primary-text));
-  --hover-bg: color-mix(in srgb, var(--primary-bg) 90%, var(--primary-text));
+  --hover-bg: color-mix(in srgb, var(--primary-bg) 95%, var(--primary-text));
   --hover-border: color-mix(in srgb, var(--border-color) 60%, var(--primary-text));
   --button-hover-bg: color-mix(in srgb, var(--accent-color) 80%, black);
+
+  --shadow-1: rgba(0, 0, 0, 0.1);
+  --shadow-2: rgba(0, 0, 0, 0.2);
+  --shadow-5: rgba(0, 0, 0, 0.5);
+  --shadow-8: rgba(0, 0, 0, 0.8);
+  --shadow-base: 0 1px 2px var(--shadow-2);
+  --shadow-elevated: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-emphasis: 0 2px 12px var(--shadow-2);
+  --shadow-persistent: 0px 0px 12px rgba(28, 43, 51, 0.6);
+  --shadow-primary: 0px 0px 12px rgba(28, 43, 51, 0.1);
+  --shadow-responsive: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+  
+  --card-box-shadow: 0 0 24px 0 var(--shadow-1);
 
   /* Step -2: 10.4167px → 11.52px */
   --text--2: clamp(0.651rem, 0.6271rem + 0.1199vw, 0.72rem);

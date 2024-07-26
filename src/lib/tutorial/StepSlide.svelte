@@ -9,21 +9,14 @@
     li {
         display: flex;
         flex-direction: column;
-        background: var(--tertiary-bg);
+        background: var(--elevated-bg);
         position: relative;
         padding: var(--space-m);
         padding-bottom: 0;
-        border-radius: var(--space-xs);
+        border-radius: var(--space-2xs);
         flex: 0 0 90%;
         scroll-snap-align: center;
-    }
-
-    li:first-of-type {
-        scroll-snap-align: start;
-    }
-
-    li:last-of-type {
-        scroll-snap-align: end;
+        box-shadow: var(--card-box-shadow);
     }
 
     li {
@@ -34,7 +27,7 @@
             max-width: 100%;
             height: auto;
             margin-top: auto;
-            background-color: color-mix(in srgb, var(--tertiary-bg) 50%, transparent 50%);
+            background-color: color-mix(in srgb, var(--elevated-bg) 50%, transparent 50%);
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
             /* add a phone border to all edges except the bottom */
@@ -61,11 +54,11 @@
         position: absolute;
         top: var(--space-2xs);
         left: var(--space-2xs);
-        font-size: var(--text-7);
+        font-size: var(--text-9);
         font-weight: 900;
         pointer-events: none;
         line-height: 0.85;
-        opacity: 0.15;
+        opacity: 0.10;
         mix-blend-mode: plus-darker;
     }
 

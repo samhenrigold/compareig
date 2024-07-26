@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from "svelte";
 	import FileDropZone from "@components/DropZone.svelte";
 	import ResultsList from "@components/ResultsList.svelte";
 	import StepCarousel from "@components/tutorial/StepCarousel.svelte";
@@ -9,6 +10,46 @@
 	let results: ProcessedData | null = null;
 	let loading = false;
 	let error: string | null = null;
+
+	function copyRichTextResults() {
+		if (results) {
+			const richText = generateRichTextResults(results);
+			const blob = new Blob([richText], { type: "text/html" });
+			const clipboardItem = new ClipboardItem({ "text/html": blob });
+
+			navigator.clipboard
+				.write([clipboardItem])
+				.then(() => {
+					alert("Results copied to clipboard!");
+				})
+				.catch((err) => {
+					console.error("Failed to copy rich text: ", err);
+					// Fallback to plain text
+					navigator.clipboard.writeText(richText).then(() => {
+						alert("Results copied to clipboard!");
+					});
+				});
+		}
+	}
+
+	async function loadTestFile() {
+		try {
+			const response = await fetch(
+				"/test/instagram-samhenrigold-2024-07-16-tiRxj9oM.zip"
+			);
+			if (response.ok) {
+				const blob = await response.blob();
+				const file = new File(
+					[blob],
+					"instagram-samhenrigold-2024-07-16-tiRxj9oM.zip",
+					{ type: "application/zip" }
+				);
+				await handleFileSelect(file);
+			}
+		} catch (err) {
+			console.error("Failed to load test file:", err);
+		}
+	}
 
 	async function handleFileSelect(file: File) {
 		loading = true;
@@ -40,26 +81,11 @@
 		}
 	}
 
-	function copyRichTextResults() {
-		if (results) {
-			const richText = generateRichTextResults(results);
-			const blob = new Blob([richText], { type: "text/html" });
-			const clipboardItem = new ClipboardItem({ "text/html": blob });
-
-			navigator.clipboard
-				.write([clipboardItem])
-				.then(() => {
-					alert("Results copied to clipboard!");
-				})
-				.catch((err) => {
-					console.error("Failed to copy rich text: ", err);
-					// Fallback to plain text
-					navigator.clipboard.writeText(richText).then(() => {
-						alert("Results copied to clipboard!");
-					});
-				});
+	onMount(() => {
+		if (window.location.hostname === "localhost") {
+			loadTestFile();
 		}
-	}
+	});
 </script>
 
 <main>
@@ -142,7 +168,7 @@
 	}
 
 	.info {
-		background-color: var(--secondary-bg);
+		background-color: var(--highlight-bg);
 		border-radius: var(--space-2xs);
 		padding: var(--space-m);
 		margin-bottom: var(--space-l);

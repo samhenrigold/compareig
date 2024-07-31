@@ -11,6 +11,24 @@
 	let loading = false;
 	let error: string | null = null;
 
+	function trackFileUpload() {
+		if (typeof window.plausible !== 'undefined') {
+			window.plausible("File: Archive Uploaded");
+		}
+	}
+
+	function trackCopyToClipboard() {
+		if (typeof window.plausible !== 'undefined') {
+			window.plausible("Results: Copy to Clipboard");
+		}
+	}
+
+	function trackMoreInfoExpanded(e: CustomEvent) {
+		if (typeof window.plausible !== 'undefined' && (e.target as HTMLDetailsElement).open) {
+			window.plausible("More Info: Expanded");
+		}
+	}
+
 	function copyRichTextResults() {
 		if (results) {
 			const richText = generateRichTextResults(results);
@@ -28,7 +46,8 @@
 					navigator.clipboard.writeText(richText).then(() => {
 						alert("Results copied to clipboard!");
 					});
-				});
+				})
+				.finally(trackCopyToClipboard);
 		}
 	}
 
@@ -74,6 +93,7 @@
 			);
 
 			results = result;
+			trackFileUpload();
 		} catch (err) {
 			error = err instanceof Error ? err.message : String(err);
 		} finally {
@@ -85,13 +105,16 @@
 		if (window.location.hostname === "localhost") {
 			loadTestFile();
 		}
+		window.plausible = window.plausible || function (...args: [string, object?]) {
+			(window.plausible.q = window.plausible.q || []).push(args);
+		};
 	});
 </script>
 
 <main>
 	<h1>Compare Instagram Followers</h1>
 
-	<details class="info">
+	<details class="info" on:toggle={(e) => trackMoreInfoExpanded(e)}>
 		<summary>
 			<h2>How it works</h2>
 		</summary>

@@ -1,11 +1,9 @@
 <script lang="ts">
 	import StepSlide from "@components/tutorial/StepSlide.svelte";
-	import { onMount } from "svelte";
-	let isIOS =
-		(/iPad|iPhone|iPod/.test(navigator.platform) ||
-			(navigator.platform === "MacIntel" &&
-				navigator.maxTouchPoints > 1)) &&
-		!(window as any).MSStream;
+
+	let hasScrolled = false;
+
+	let isIOS = (/iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) && !(window as any).MSStream;
 
 	const downloadInformationURLs = {
 		deepLink: "instagram://download_your_information",
@@ -24,9 +22,16 @@
             window.open(downloadInformationURLs.webLink, "_blank")?.focus();
         }
     }
+
+	function trackTutorialScroll() {
+		if (typeof window.plausible !== 'undefined' && !hasScrolled) {
+			window.plausible("More Info: Scroll Tutorial");
+			hasScrolled = true;
+		}
+	}
 </script>
 
-<ol class="carousel">
+<ol class="carousel" on:scroll={() => trackTutorialScroll()}>
 	<StepSlide>
 		<div>
 			<button on:click={handleOpenInstagram}>{isIOS ? "Open" : "Go to"} Instagram’s <strong>Download your information</strong> page.</button>

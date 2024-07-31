@@ -24,9 +24,18 @@ Instagram Follower Analyzer is a web-based tool that helps you analyze your Inst
 ## Privacy and Security
 
 - All data processing happens locally in your browser
-- No data is uploaded to any server
+- No Instagram data is uploaded to any server
 - The tool only reads the followers and following lists from your Instagram data
 - Can be used offline once the page has loaded
+
+### Metrics
+I’m using Plausible to track visits to the site. I’m also using it to see if people use certain features of the site. The custom events measured are:
+- More Info: Expanded
+- More Info: Scroll Tutorial
+- File: Archive Uploaded
+- Results: Copy to Clipboard
+
+You can see the data collected on the [Plausible dashboard](https://plausible.io/compareig.com).
 
 ## Technology Stack
 

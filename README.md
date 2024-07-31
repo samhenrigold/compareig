@@ -33,7 +33,16 @@ I’m using Plausible to track visits to the site. I’m also using it to see if
 - More Info: Expanded
 - More Info: Scroll Tutorial
 - File: Archive Uploaded
+  - If it was successful, no additional information is attached.
+    - If it failed, one of the following error messages will be attached:
+        - 'Connections directory not found in the ZIP'
+        - 'followers_and_following directory not found'
+        - 'Required files not found in the ZIP'
+        - 'No user data found in the HTML'
+        - 'Unsupported file type. Please upload a ZIP or HTML file.'
+        - 'Invalid input: expected a File object'
 - Results: Copy to Clipboard
+  - Includes if we could copy rich text or if we had to fallback to plain text. This helps me understand if the feature is working as expected.
 
 You can see the data collected on the [Plausible dashboard](https://plausible.io/compareig.com).
 

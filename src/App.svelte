@@ -11,15 +11,15 @@
 	let loading = false;
 	let error: string | null = null;
 
-	function trackFileUpload() {
+	function trackFileUpload(err: Error | null = null) {
 		if (typeof window.plausible !== 'undefined') {
-			window.plausible("File: Archive Uploaded");
+			window.plausible("File: Archive Uploaded", {props: {error: err ? String(err) : undefined}});
 		}
 	}
 
-	function trackCopyToClipboard() {
+	function trackCopyToClipboard(couldCopyRichResults: boolean) {
 		if (typeof window.plausible !== 'undefined') {
-			window.plausible("Results: Copy to Clipboard");
+			window.plausible("Results: Copy to Clipboard", {props: { couldCopyRichResults }});
 		}
 	}
 
@@ -38,6 +38,7 @@
 			navigator.clipboard
 				.write([clipboardItem])
 				.then(() => {
+					trackCopyToClipboard(true);
 					alert("Results copied to clipboard!");
 				})
 				.catch((err) => {
@@ -45,9 +46,9 @@
 					// Fallback to plain text
 					navigator.clipboard.writeText(richText).then(() => {
 						alert("Results copied to clipboard!");
+						trackCopyToClipboard(false);
 					});
 				})
-				.finally(trackCopyToClipboard);
 		}
 	}
 
@@ -96,6 +97,7 @@
 			trackFileUpload();
 		} catch (err) {
 			error = err instanceof Error ? err.message : String(err);
+			trackFileUpload(err as Error);
 		} finally {
 			loading = false;
 		}

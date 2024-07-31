@@ -13,7 +13,7 @@
 
 	function trackFileUpload(err: Error | null = null) {
 		if (typeof window.plausible !== 'undefined') {
-			window.plausible("File: Archive Uploaded", {props: {error: err ? String(err) : undefined}});
+			window.plausible("File: Archive Uploaded", {props: {error: err?.message}});
 		}
 	}
 

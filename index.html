@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Compare Instagram Followers</title>
+    <title>Compare Instagram Followers and Following | See Who Follows You Back</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -12,7 +12,7 @@
     <meta name="application-name" content="Compare IG">
     <meta name="theme-color" content="#9360F7">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Analyze your Instagram follower list. See who doesn’t follow you back, who you don’t follow back, and your mutual followers.">
+    <meta name="description" content="Easily compare your Instagram followers to your following. Upload your lists to see who doesn’t follow you back, who you don’t follow back, and more. No login required.">
     <meta property="og:title" content="Compare Instagram Followers">
     <meta property="og:description" content="Analyze your Instagram follower list. See who doesn’t follow you back, who you don’t follow back, and your mutual followers.">
     <meta property="og:image" content="https://compareig.com/og-image.png">
@@ -25,8 +25,111 @@
     <meta property="fediverse:creator" content="samhenrigold@hachyderm.io" />
     <script defer data-domain="compareig.com" src="https://plausible.io/js/script.js"></script>
     <script defer data-domain="compareig.com" src="/js/script.tagged-events.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+          "@type": "Question",
+          "name": "How do I compare my Instagram followers to my following list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Simply export your followers and following lists from Instagram, upload them into CompareIG, and within seconds you'll see who doesn't follow you back."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool safe to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. CompareIG never asks for your Instagram password. You only upload downloaded data from your account settings."
+          }
+        }]
+      }
+      </script>
+      <script type="application/ld+json">
+        {
+          "@context" : "https://schema.org",
+          "@type" : "WebSite",
+          "name" : "Compare IG",
+          "alternateName": ["CompareIG", "Compare Instagram Followers"],
+          "url" : "https://compareig.com/"
+        }
+      </script>    
   </head>
   <body>
+    <h1>Compare Instagram Followers</h1>
+    <details class="info static">
+      <summary>
+        <h2>How it works</h2>
+      </summary>
+      <ol class="carousel">
+        <li>
+          <div>
+            <button on:click={handleOpenInstagram}>{isIOS ? "Open" : "Go to"} Instagram’s <strong>Download your information</strong> page.</button>
+            <p>Select <strong>Download or transfer information</strong>.</p>
+          </div>
+          <img src="/tutorial/1 Landing.png" alt="The Instagram “download your information” tool landing page." loading="lazy">
+        </li>
+        
+        <li>
+          <p>Select a single Instagram account.</p>
+          <img src="/tutorial/2 Select Account.png" alt="A selection list of your Meta accounts. One single Instagram account is selected." loading="lazy">
+        </li>
+        
+        <li>
+          <p>Select <strong>Some of your information</strong>.</p>
+          <img src="/tutorial/3 How Much Info.png" alt="How much information do you want? You can get all available information for your selected profile or choose specific information. Option 1: All available information. Your file will include a complete copy of information for your selected profiles. May take longer to download. Option 2: Some of your information. Your file will include the information you choose for your selected profiles." loading="lazy">
+        </li>
+        
+        <li>
+          <p>Scroll to <strong>Followers and following</strong> and select it.</p>
+          <img src="/tutorial/4 Only Followers Following.png" alt="A list of the types of downloadable data. The only type selected is 'Followers and following' under the 'Connections' section." loading="lazy">
+        </li>
+        
+        <li>
+          <p>Choose <strong>Download to device</strong>.</p>
+          <img src="/tutorial/5 Download Device.png" alt="What do you want to do with your information? Option 1: Download to device. Option 2 (selected): Transfer to destination" loading="lazy">
+        </li>
+      
+        <li>
+          <p>Set <strong>Date range</strong> to <strong>All time</strong>.</p>
+          <p>Set <strong>Format</strong> to <strong>JSON</strong>.</p>
+          <p>Select <strong>Create files</strong>.</p>
+          <img src="/tutorial/6 Create Files.png" alt="Create files to download. Date range: All time. Format: JSON." loading="lazy">
+        </li>
+      
+        <li>
+          <p>Wait for Instagram to generate the files.</p>
+          <p>This may take a few minutes. I don’t know why.</p>
+          <img src="/tutorial/7 Archive Pending.png" alt="Current activity. One file set in progress." loading="lazy">
+        </li>
+      
+        <li>
+          <p>Select <strong>Download</strong>, then enter your password.</p>
+          <img src="/tutorial/8 Archive Ready.png" alt="Current activity. Available downloads: one file set." loading="lazy">
+        </li>
+      </ol>
+      <ul>
+        <li>
+          Your data stays on your device. We never upload or store your
+          information on any servers.
+        </li>
+        <li>All processing happens right here in your browser.</li>
+        <li>You can use this tool offline once the page has loaded.</li>
+        <li>
+          We only read the followers and following lists from your
+          Instagram data. Nothing else is accessed.
+        </li>
+      </ul>
+      <p>
+        Still not sure? The <a
+          href="https://github.com/samhenrigold/compareig"
+          target="_blank">source code is available</a
+        > and accepting contributions!
+      </p>
+      <p>A web tool by <a href="https://samhenri.gold">Sam Henri Gold</a></p>
+    </details>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

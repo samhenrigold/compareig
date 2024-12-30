@@ -12,7 +12,13 @@ async function processFile(file: JSZip.JSZipObject, isFollowing: boolean): Promi
 
 export async function processZipFile(file: File): Promise<ProcessedData> {
   const zip = new JSZip();
-  const contents = await zip.loadAsync(file);
+  let contents: JSZip;
+  try {
+    contents = await zip.loadAsync(file);
+  } catch (err) {
+    console.error("JSZip error:", err);
+    throw new InstagramDataError("Invalid or corrupted ZIP file.");
+  }
 
   const connectionsDir = await findConnectionsDirectory(contents);
   if (!connectionsDir) {

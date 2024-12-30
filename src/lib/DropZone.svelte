@@ -19,7 +19,7 @@
 	}
 
 	function handleFile(file: File | undefined) {
-		if (file && file.type === "application/zip") {
+        if (file && (file.type === "application/zip" || file.type === "application/x-zip-compressed" || file.name.endsWith(".zip"))) {
 			dispatch("fileSelected", { file });
 		} else {
 			alert("Please select a ZIP file");

@@ -23,7 +23,7 @@
 		}
 	}
 
-	function trackMoreInfoExpanded(e: Event) {
+	function trackMoreInfoExpanded(e: CustomEvent) {
 		if (typeof window.plausible !== 'undefined' && (e.target as HTMLDetailsElement).open) {
 			window.plausible("More Info: Expanded");
 		}
@@ -114,6 +114,8 @@
 </script>
 
 <main>
+	<h1>Compare Instagram Followers</h1>
+
 	<details class="info" on:toggle={(e) => trackMoreInfoExpanded(e)}>
 		<summary>
 			<h2>How it works</h2>
@@ -166,3 +168,74 @@
 		</section>
 	{/if}
 </main>
+
+<style>
+	main {
+		max-inline-size: 65ch;
+		margin-inline: auto;
+		padding-block: var(--space-l);
+		padding-inline: var(--space-m);
+		font-family: system-ui, sans-serif;
+	}
+
+	h1 {
+		font-size: var(--text-4);
+		text-align: center;
+		margin-block-end: var(--space-l);
+	}
+
+	.error {
+		color: var(--error-text);
+		background-color: var(--error-bg);
+		padding: var(--space-s);
+		border-radius: var(--space-2xs);
+		font-weight: bold;
+	}
+
+	.info {
+		background-color: var(--highlight-bg);
+		border-radius: var(--space-2xs);
+		padding: var(--space-m);
+		margin-bottom: var(--space-l);
+		padding-left: var(--space-m);
+	}
+
+	.info p {
+		padding-left: var(--space-m);
+	}
+
+	.info h2 {
+		display: inline;
+		font-size: var(--text-1);
+		margin-bottom: var(--space-s);
+	}
+
+	.info p:last-of-type {
+		margin-top: var(--space-m);
+		opacity: 0.7;
+	}
+
+	.info ul {
+		margin-bottom: var(--space-s);
+		padding-left: var(--space-m);
+	}
+
+	.info li {
+		margin-bottom: var(--space-2xs);
+	}
+
+	button {
+		background-color: var(--accent-color);
+		color: #fff;
+		padding: var(--space-xs) var(--space-s);
+		border: none;
+		border-radius: var(--space-3xs);
+		cursor: pointer;
+		font-size: var(--text-0);
+		margin-bottom: var(--space-m);
+	}
+
+	button:hover {
+		background-color: var(--button-hover-bg);
+	}
+</style>

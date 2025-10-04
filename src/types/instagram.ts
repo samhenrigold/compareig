@@ -4,9 +4,10 @@ export interface InstagramUser {
 }
 
 export interface InstagramUserJSON {
+  title?: string; // New format: username is in title field
   string_list_data: Array<{
     href: string;
-    value: string;
+    value?: string; // Old format: username is in value field
     timestamp: number;
   }>;
 }

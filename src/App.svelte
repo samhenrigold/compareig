@@ -55,13 +55,13 @@
 	async function loadTestFile() {
 		try {
 			const response = await fetch(
-				"/test/instagram-samhenrigold-2024-07-16-tiRxj9oM.zip"
+				"/test/instagram-samhenrigold-2025-10-04-qLUIFAvi.zip"
 			);
 			if (response.ok) {
 				const blob = await response.blob();
 				const file = new File(
 					[blob],
-					"instagram-samhenrigold-2024-07-16-tiRxj9oM.zip",
+					"instagram-samhenrigold-2025-10-04-qLUIFAvi.zip",
 					{ type: "application/zip" }
 				);
 				await handleFileSelect(file);

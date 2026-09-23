@@ -69,7 +69,7 @@
 	</StepSlide>
 
 	<StepSlide>
-		<p>Wait for Instagram to generate the files This could take a few minutes if you’re popular.</p>
+		<p>Wait for Instagram to generate the files. This could take a few minutes if you’re popular.</p>
 		<p>Download it when it’s ready.</p>
 		<img src="/tutorial/7 Archive Ready.png" alt="Current activity. Available downloads: one file set." loading="lazy">
 	</StepSlide>

@@ -23,7 +23,7 @@
 		}
 	}
 
-	function trackMoreInfoExpanded(e: CustomEvent) {
+	function trackMoreInfoExpanded(e: Event) {
 		if (typeof window.plausible !== 'undefined' && (e.target as HTMLDetailsElement).open) {
 			window.plausible("More Info: Expanded");
 		}
@@ -122,22 +122,11 @@
 		</summary>
 		<StepCarousel />
 		<ul>
-			<li>
-				Your data stays on your device. We never upload or store your
-				information on any servers.
-			</li>
-			<li>All processing happens right here in your browser.</li>
-			<li>You can use this tool offline once the page has loaded.</li>
-			<li>
-				We only read the followers and following lists from your
-				Instagram data. Nothing else is accessed.
-			</li>
+			<li>Everything runs in your browser. Your file never leaves your device.</li>
+			<li>Only the followers and following lists are read.</li>
 		</ul>
 		<p>
-			Still not sure? The <a
-				href="https://github.com/samhenrigold/compareig"
-				target="_blank">source code is available</a
-			> and accepting contributions!
+			The <a href="https://github.com/samhenrigold/compareig" target="_blank">source code</a> is public.
 		</p>
 		<p>A web tool by <a href="https://samhenri.gold">Sam Henri Gold</a></p>
 	</details>
@@ -145,16 +134,12 @@
 	<FileDropZone on:fileSelected={(e) => handleFileSelect(e.detail.file)} />
 
 	{#if loading}
-		<p aria-live="polite">Processing your data. Please wait...</p>
+		<p aria-live="polite">Processing…</p>
 	{:else if error}
 		<p class="error" role="alert">{error}</p>
 	{:else if results}
 		<section aria-label="Analysis Results">
 			<h2>Results</h2>
-			<p>
-				Want to save this for later? Copy and paste this into your Notes
-				app.
-			</p>
 			<button on:click={copyRichTextResults}>Copy Results</button>
 			<ResultsList
 				title="Not following you back"

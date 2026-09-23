@@ -21,7 +21,7 @@ export function parseHTMLContent(html: string): InstagramUser[] {
   });
 
   if (users.length === 0) {
-    throw new InstagramDataError('No user data found in the HTML');
+    throw new InstagramDataError('No followers or following found in this file.');
   }
 
   return users;

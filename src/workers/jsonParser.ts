@@ -7,7 +7,7 @@ export function parseJSONContent(content: string, isFollowing: boolean): Instagr
     ? data
     : (isFollowing && Array.isArray(data?.relationships_following) ? data.relationships_following : Object.values(data ?? {}).find(Array.isArray));
   if (!users) {
-    throw new Error('Unrecognized Instagram JSON format');
+    throw new Error('This export can’t be read. Instagram may have changed its format; please report it on GitHub.');
   }
 
   return users.map((user: InstagramUserJSON) => {
@@ -17,7 +17,7 @@ export function parseJSONContent(content: string, isFollowing: boolean): Instagr
     const timestamp = user.string_list_data[0].timestamp;
     
     if (!username) {
-      throw new Error('Username not found in Instagram data');
+      throw new Error('This export can’t be read. Instagram may have changed its format; please report it on GitHub.');
     }
     
     return {

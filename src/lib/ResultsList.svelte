@@ -32,8 +32,6 @@
                 </li>
             {/each}
         </ul>
-    {:else}
-        <p>No users in this category.</p>
     {/if}
 </section>
 

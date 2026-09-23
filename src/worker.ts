@@ -32,7 +32,7 @@ self.onmessage = async (e: MessageEvent<unknown>) => {
     } else if (name.endsWith('.html') || name.endsWith('.htm')) {
       result = await processHTMLFile(file);
     } else {
-      throw new InstagramDataError('Unsupported file type. Please upload a ZIP or HTML file.');
+      throw new InstagramDataError('That isn’t a ZIP file. Upload the ZIP Instagram sent you.');
     }
 
     // Calculate relationship durations

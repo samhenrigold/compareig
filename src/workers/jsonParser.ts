@@ -2,7 +2,13 @@ import type { InstagramUser, InstagramUserJSON } from '@/types/instagram';
 
 export function parseJSONContent(content: string, isFollowing: boolean): InstagramUser[] {
   const data = JSON.parse(content);
-  const users = isFollowing ? data.relationships_following : data;
+  // Exports are either a bare array or an object wrapping one (e.g. relationships_following).
+  const users: InstagramUserJSON[] | undefined = Array.isArray(data)
+    ? data
+    : (isFollowing && Array.isArray(data?.relationships_following) ? data.relationships_following : Object.values(data ?? {}).find(Array.isArray));
+  if (!users) {
+    throw new Error('Unrecognized Instagram JSON format');
+  }
 
   return users.map((user: InstagramUserJSON) => {
     // New format: username is in 'title' field

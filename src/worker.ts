@@ -24,9 +24,12 @@ self.onmessage = async (e: MessageEvent<unknown>) => {
   try {
     let result: ProcessedData;
 
-    if (file.type === 'application/zip') {
+    // Match on extension: browsers report ZIP MIME types inconsistently
+    // (application/x-zip-compressed on Windows, octet-stream or empty on Android).
+    const name = file.name.toLowerCase();
+    if (name.endsWith('.zip')) {
       result = await processZipFile(file);
-    } else if (file.type === 'text/html') {
+    } else if (name.endsWith('.html') || name.endsWith('.htm')) {
       result = await processHTMLFile(file);
     } else {
       throw new InstagramDataError('Unsupported file type. Please upload a ZIP or HTML file.');
